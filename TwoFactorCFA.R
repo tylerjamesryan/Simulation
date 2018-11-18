@@ -15,6 +15,7 @@
 
 library(lavaan)
 
+
 Ns <- seq(50, 400, by = 50)
 itemsPerFac <- 5
 loadings <- .8
