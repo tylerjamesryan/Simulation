@@ -1,4 +1,6 @@
 
+set.seed(080125)
+
 # one-sample t-test power analysis
 
 generator <- function(n_persons) {

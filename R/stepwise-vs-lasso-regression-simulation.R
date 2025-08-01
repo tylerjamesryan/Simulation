@@ -142,12 +142,12 @@ for (c in 1:n_cond) {
 }
 
 filename <- "results/stepwise-vs-lasso-regression-results.csv"
-write.csv(results, filename, row.names=FALSEO)
+write.csv(results, filename, row.names=FALSE)
 
 
 results %>%
   group_by(type, n_persons, n_pred) %>%
-  summarize(m = mean(mse)) %>%
+  summarize(m = sqrt(mean(mse))) %>%
   ggplot(aes(x = n_persons, y = m, color=type)) +
   geom_line() +
   facet_wrap(~ n_pred) +
