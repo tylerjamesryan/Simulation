@@ -1,4 +1,5 @@
 
+library(tidyverse)
 
 rlaplace <- function(n, tau) {
   lambda <- 1 / tau
@@ -14,7 +15,7 @@ sample_pars <- function(conditions) {
   n_pred <- conditions[["n_pred"]]
   
   a <- rnorm(1, 0, 1)
-  tau <- rexp(1, 1) # amount of regularization
+  tau <- rexp(1, 10) # amount of regularization, higher numbers = fewer predictors
   b <- rlaplace(n_pred, tau)
   sigma <- rexp(1, 1)
   
@@ -122,11 +123,11 @@ simulator <- function(conditions) {
 
 
 simulation_conditions <- expand.grid(
-  n_persons=c(50, 100, 200, 300, 500), n_pred=c(5, 10, 20, 30, 50, 100)
+  n_persons=c(50, 250, 500), n_pred=c(5, 20, 50, 100)
 )
 
 n_cond <- nrow(simulation_conditions)
-n_iters <- 1000
+n_iters <- 500
 
 results <- data.frame()
 
@@ -139,6 +140,9 @@ for (c in 1:n_cond) {
   
   print(conditions)
 }
+
+filename <- "results/stepwise-vs-lasso-regression-results.csv"
+write.csv(results, filename, row.names=FALSEO)
 
 
 results %>%
